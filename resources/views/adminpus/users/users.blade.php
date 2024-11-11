@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('adminpus.index')
 
 @section('content')
     <div class="pagetitle">
@@ -43,7 +43,7 @@
                   <tr>
                     <td>{{ $p+1 }}</td>
                     <td>{{ $data->username }}</td>
-                    <td>{{ $data->role_name }}</td>
+                    <td>{{ $data->nama_role }}</td>
                     <td>{{ $data->nama_pj }}</td>
                     <td>{{ $data->alamat }}</td>
                     <td>{{ $data->no_wa }}</td>
@@ -74,9 +74,6 @@
 
 {{-- sweet alert (alert hapus) --}}
 <script type="text/javascript">
-    $(()=>{
-
-    });
 
     const destroy = (id)=>{
         swal({

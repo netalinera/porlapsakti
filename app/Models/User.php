@@ -47,8 +47,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    // // one to one dari tabel profil user
-    // public function profil_user(){
-    //     return $this->hasOne(ProfilUser::class);
-    // }
+    // one to one dari tabel profil user
+    public function profil_user(){
+        return $this->hasOne(ProfilUser::class);
+    }
 }

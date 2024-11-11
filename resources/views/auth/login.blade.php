@@ -65,12 +65,12 @@
                   </div>
 
                     {{-- jika username & password salah --}}
-                  <!-- @if (session()->has('error'))
+                   @if (session()->has('error'))
                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
                       {{ session('error') }}
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
-                  @endif -->
+                  @endif
 
                   <form class="row g-3 needs-validation" novalidate method="post" action="{{ route('login') }}">
                     @csrf

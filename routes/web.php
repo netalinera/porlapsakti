@@ -5,6 +5,7 @@ use App\Http\Controllers\adminwilController;
 use App\Http\Controllers\redirectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sesiController;
+use App\Http\Controllers\usersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,15 @@ Route::group(['middleware' => ['auth', 'checkrole:1,2']], function() {
 // untuk admin pusat
 Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
     Route::get('/adminpus', [adminpusController::class, 'index']);
+    //manajemen user
+    Route::get('/users', [usersController::class, 'index']);
+    Route::get('/add-akun', [usersController::class, 'tambah'])->name('add-akun');
+    Route::post('/store-akun', [usersController::class, 'store'])->name('store-akun');
+    Route::get('/update-akun/{id}', [usersController::class, 'edit'])->name('update-akun');
+    Route::post('/proses-akun/{id}', [usersController::class, 'update'])->name('proses-akun');
+    Route::delete('/destroy-akun/{id}', [usersController::class, 'destroy'])->name('destroy-akun');
+    
+    
 });
 
 // untuk admin wilayah
