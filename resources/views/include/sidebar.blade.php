@@ -5,7 +5,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->is('admin') ? 'active' : 'collapsed'}}" href="{{ url('admin') }}">
+        <a class="nav-link {{ request()->is('admin') ? 'active' : 'collapsed'}}" href="{{ url('adminpus') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -70,4 +70,4 @@
   
   @endif
 
-  </aside>
+</aside>
