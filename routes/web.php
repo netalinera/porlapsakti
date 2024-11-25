@@ -44,7 +44,8 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
     Route::get('/update-akun/{id}', [usersController::class, 'edit'])->name('update-akun');
     Route::post('/proses-akun/{id}', [usersController::class, 'update'])->name('proses-akun');
     Route::delete('/destroy-akun/{id}', [usersController::class, 'destroy'])->name('destroy-akun');
-    
+    Route::post('/userchangepassword/{id}', [usersController::class, 'userchangepassword'])->name('user-change-password');
+    Route::get('/profilUsers', [UsersController::class, 'index']);
     
 });
 

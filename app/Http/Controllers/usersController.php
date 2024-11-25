@@ -6,6 +6,8 @@ use App\Models\Profiluser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -76,10 +78,43 @@ class usersController extends Controller
             // }
 
             $profile->save();
-            // return redirect()->route('profile', $user->id)->with('success', 'Your info are updated');
             return redirect('users')->with('success', 'Your info are updated');
         }
 
         return redirect('users');
     }
+
+     //change password
+     public function userchangepassword(Request $request, $id)
+     {
+         $this->validate($request, [
+             'current_password' => 'required|string',
+             'new_password' => 'required|confirmed|min:8|string'
+         ]);
+ 
+        //  if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
+        //      // The passwords matches
+        //      return redirect()->back()->with("eror","Password Anda saat ini tidak cocok dengan password yang Anda berikan. Silakan coba lagi.");
+        //  }
+          
+        //  if(strcmp($request->get('current_password'), $request->get('new_password')) == 0){
+        //      //Current password and new password are same
+        //      return redirect()->back()->with("eror","Password Baru tidak boleh sama dengan Password Anda saat ini. Silakan pilih kata sandi lain.");
+        //  }
+ 
+        //  if(!(strcmp($request->get('new_password'), $request->get('new_password_confirmation'))) == 0){
+        //      //New password and confirm password are not same
+        //      return redirect()->back()->with("eror","Password baru harus sama dengan dengan password konfirmasi. Silakan ketik ulang.");
+        //  }
+ 
+         //Change Password
+         $user =  User::find($id);
+         $user =  User::where('id',$id)->first();
+         $user -> password = bcrypt($request->get('new_password'));
+         $user -> save();
+          
+         return redirect()->back()->with("sukses","Password Berhasil Diubah !");
+     
+     }
+
 }
