@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\adminpusController;
 use App\Http\Controllers\adminwilController;
+use App\Http\Controllers\profilController;
 use App\Http\Controllers\redirectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sesiController;
@@ -36,16 +37,28 @@ Route::group(['middleware' => ['auth', 'checkrole:1,2']], function() {
 
 // untuk admin pusat
 Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
+    //dashboard admin pusat
     Route::get('/adminpus', [adminpusController::class, 'index']);
+
     //manajemen user
     Route::get('/users', [usersController::class, 'index']);
-    Route::get('/add-akun', [usersController::class, 'tambah'])->name('add-akun');
-    Route::post('/store-akun', [usersController::class, 'store'])->name('store-akun');
-    Route::get('/update-akun/{id}', [usersController::class, 'edit'])->name('update-akun');
-    Route::post('/proses-akun/{id}', [usersController::class, 'update'])->name('proses-akun');
-    Route::delete('/destroy-akun/{id}', [usersController::class, 'destroy'])->name('destroy-akun');
-    Route::post('/userchangepassword/{id}', [usersController::class, 'userchangepassword'])->name('user-change-password');
-    Route::get('/profilUsers', [UsersController::class, 'index']);
+    Route::get('/add-account', [usersController::class, 'add'])->name('add-account');
+    Route::post('/store-account', [usersController::class, 'store'])->name('store-account');
+    Route::get('/update-account/{id}', [usersController::class, 'update'])->name('update-account');
+    Route::post('/process-account/{id}', [usersController::class, 'process'])->name('process-account');
+    Route::delete('/destroy-account/{id}', [usersController::class, 'destroy'])->name('destroy-account');
+    Route::post('/userchangepw/{id}', [usersController::class, 'userchangepw'])->name('user-change-pw');
+   
+    //manajemen profil user
+    Route::get('/profile', [profilController::class, 'index']);
+    Route::get('/add-profile/{id}', [profilController::class, 'add'])->name('add-profile');
+    Route::post('/store-PU', [profilController::class, 'storePU'])->name('store-PU');//by admin
+    Route::patch('/profile/{id}', [profilController::class, 'update'])->name('update-profile');
+    Route::post('/store-profile', [profilController::class, 'store'])->name('store-profile');//by self
+    Route::post('/change-password', [profilController::class, 'changePasswordSave'])->name('postChangePassword');
+    Route::get('/destroyImg/{id}', [profilController::class, 'destroyImg'])->name('destroyImg');
+    Route::patch('/updatePhoto/{id}', [profilController::class, 'updatePhoto'])->name('updatePhoto');
+
     
 });
 

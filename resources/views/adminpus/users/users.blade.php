@@ -22,7 +22,7 @@
 
               
               <p><!-- button -->
-              <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="Tambah Akun" href="{{ url('add-akun') }}"><i class="ri-add-circle-fill"></i></a></p>
+              <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="Tambah Akun" href="{{ url('add-account') }}"><i class="ri-add-circle-fill"></i></a></p>
 
 
               <!-- Table with stripped rows -->
@@ -50,7 +50,11 @@
                     <td>
                       <centre>
                         <div class="btn-group" role="group" aria-label="grup aksi">
-                          <a href="{{ route('update-akun', $data->id) }}" type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Data"><i class="ri-edit-2-fill"></i></a>
+                          @if (isset($data->nama_pj))
+                            <a href="{{ route('update-account', $data->id) }}" type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Data"><i class="ri-edit-2-fill"></i></a>  
+                          @else
+                            <a href="{{ route('add-profile', $data->id) }}" type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tambah Profil"><i class="ri-user-add-fill"></i></a>
+                          @endif
                           <button type="submit" class="btn btn-danger" onclick=" destroy({{ $data->id }})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus Data"><i class="ri-delete-bin-2-fill"></i></button>
                               
                         </div>
@@ -92,7 +96,7 @@
                     _method:'delete',
                     _token:"{{csrf_token()}}"
                 }
-                $.post("destroy-akun/"+id,access)
+                $.post("destroy-account/"+id,access)
                 .done(res=>{
                     console.log(res);
                     swal({

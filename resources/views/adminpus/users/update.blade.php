@@ -5,7 +5,7 @@
       <h1>Akun</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ url('akun') }}">Akun</a></li>
+          <li class="breadcrumb-item"><a href="{{ url('users') }}">Akun</a></li>
           <li class="breadcrumb-item active">Pengaturan</li>
         </ol>
       </nav>
@@ -20,7 +20,7 @@
               <h5 class="card-title">Detail Akun</h5>
                             
               <!-- General Form Elements -->
-              <form method="POST" action="{{ route('proses-akun', $user->id) }}">
+              <form method="POST" action="{{ route('process-account', $user->id) }}">
 
                 {{ @csrf_field() }}
 
@@ -66,21 +66,21 @@
                 <div class="row mb-3">
                   <label for="nama_pj" class="col-sm-2 col-form-label">Nama PJ</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nama_pj" value="{{$user->profil_user->nama_pj}}">
+                    <input type="text" class="form-control" name="nama_pj" value="{{ optional($user->profil_user)->nama_pj }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="alamat" value="{{$user->profil_user->alamat}}">
+                    <input type="text" class="form-control" name="alamat" value="{{ optional($user->profil_user)->alamat }}">
                   </div>
                 </div>
                 
                 <div class="row mb-3">
                   <label for="no_wa" class="col-sm-2 col-form-label">Nomor WA</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="no_wa" value="{{$user->profil_user->no_wa}}">
+                    <input type="text" class="form-control" name="no_wa" value="{{ optional($user->profil_user)->no_wa }}">
                   </div>
                 </div>
 
@@ -88,7 +88,7 @@
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Submit</button> 
-                    <a href="{{ url()->previous() }}">Back</a>
+                    {{-- <a href="{{ url()->previous() }}">Back</a> --}}
                   </div>
                   <div class="col-sm-1">
                     <!-- Basic Modal -->
@@ -114,7 +114,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="{{ route('user-change-password', $user->id) }}" method="post"> 
+              <form action="{{ route('user-change-pw', $user->id) }}" method="post"> 
 
                 @csrf
                 <input type="text" name="id" value="{{ $user->id }}"> <br/>

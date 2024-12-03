@@ -1,4 +1,4 @@
-@extends('admin.index')
+@extends('adminpus.index')
 
 @section('content')
     <div class="pagetitle">
@@ -36,7 +36,7 @@
               @endif
                             
               <!-- General Form Elements -->
-              <form method="POST" action="{{ url('store-akun') }}" class="row g-3 needs-validation" novalidate>
+              <form method="POST" action="{{ url('store-account') }}" class="row g-3 needs-validation" novalidate>
                 @csrf
 
                 <div class="row mb-3">
@@ -78,7 +78,6 @@
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
-                </div>
 
               </form><!-- End General Form Elements -->
 
@@ -87,5 +86,6 @@
 
         </div>
       </div>
+
   </section>
 @endsection

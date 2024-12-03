@@ -168,8 +168,8 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            @if(isset(Auth::user()->profiluser->photo))
-                <img src="{{ asset('storage/photos/'.Auth::user()->profiluser->photo) }}" class="rounded-circle" alt="Profile">
+            @if(isset(Auth::user()->profil_user->photo))
+                <img src="{{ asset('storage/photos/'.Auth::user()->profil_user->photo) }}" class="rounded-circle" alt="Profile">
             @else
                 <img src="{{ asset('admins/img/profile-img.jpg') }}" class="rounded-circle" alt="Profile">
             @endif
@@ -187,7 +187,7 @@
 
             @if (auth()->user()->role_id === 1) 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ url('profilUsers') }}">
+              <a class="dropdown-item d-flex align-items-center" href="{{ url('profil') }}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>

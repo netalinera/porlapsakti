@@ -6,6 +6,7 @@ use App\Models\Profiluser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -43,7 +44,7 @@ class usersController extends Controller
     }
 
     //update 
-    public function edit($id){
+    public function update($id){
     	
         $user = User::with('profil_user')->findOrFail($id);
         // passing data pegawai yang didapat ke view edit.blade.php
@@ -52,7 +53,7 @@ class usersController extends Controller
     }
 
     //proses update tabel user dan profil user
-    public function update(Request $request, $id){
+    public function process(Request $request, $id){
         //find user by id
         $user = User::find($id);
         $user = User::where('id',$id)->first();
@@ -78,14 +79,18 @@ class usersController extends Controller
             // }
 
             $profile->save();
-            return redirect('users')->with('success', 'Your info are updated');
+            if($profile){
+                return redirect('users')->with('success', 'Your info are updated');
+            }else{
+                return redirect('users')->with('failed', 'failed info to updated');
+            }
         }
 
         return redirect('users');
     }
 
      //change password
-     public function userchangepassword(Request $request, $id)
+     public function userchangepw(Request $request, $id)
      {
          $this->validate($request, [
              'current_password' => 'required|string',
@@ -114,7 +119,37 @@ class usersController extends Controller
          $user -> save();
           
          return redirect()->back()->with("sukses","Password Berhasil Diubah !");
+
      
      }
+
+    //add akun
+    public function add()
+    {
+    
+        // memanggil view tambah
+        return view('adminpus.users.add');
+    
+    }
+
+    //proses insert db
+    public function store(Request $request){
+
+        request()->validate([
+            'Username'       => 'required|string|min:2|max:100',
+            'Password'      => 'required|min:8|string'
+        ]);
+
+        // insert data ke table pegawai
+	    DB::table('users')->insert([
+            'username' => $request->Username,
+            'password' => bcrypt($request->Password),
+            'role_id' => $request->role_id,
+            'remember_token' => Str::random(10)
+	    ]);
+
+        // return redirect('akun');
+        return redirect()->back()->with("success","akun berhasil ditambahkan!");
+    }
 
 }
