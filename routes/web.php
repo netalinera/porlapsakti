@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
     Route::get('/add-account', [usersController::class, 'add'])->name('add-account');
     Route::post('/store-account', [usersController::class, 'store'])->name('store-account');
     Route::get('/update-account/{id}', [usersController::class, 'update'])->name('update-account');
-    Route::post('/process-account/{id}', [usersController::class, 'process'])->name('process-account');
+    Route::post('/process-account/{id}', [usersController::class, 'processupdate'])->name('process-account');
     Route::delete('/destroy-account/{id}', [usersController::class, 'destroy'])->name('destroy-account');
     Route::post('/userchangepw/{id}', [usersController::class, 'userchangepw'])->name('user-change-pw');
    

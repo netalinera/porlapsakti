@@ -86,7 +86,7 @@
             type: 'warning',
             showCancelButton: true,
             cancelButtonText: "Batal",
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#20489b',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Ya, Saya Yakin!'
         }).then(result=>{

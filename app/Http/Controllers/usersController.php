@@ -53,7 +53,7 @@ class usersController extends Controller
     }
 
     //proses update tabel user dan profil user
-    public function process(Request $request, $id){
+    public function processupdate(Request $request, $id){
         //find user by id
         $user = User::find($id);
         $user = User::where('id',$id)->first();
@@ -61,7 +61,7 @@ class usersController extends Controller
         if($user->save())
         {
             $profile = Profiluser::find($id);
-            $profile = Profiluser::where('id',$id)->first();
+            $profile = Profiluser::where('user_id',$id)->first();
             $profile->nama_pj = $request->input('nama_pj');
             $profile->alamat = $request->input('alamat');
             $profile->no_wa = $request->input('no_wa');
