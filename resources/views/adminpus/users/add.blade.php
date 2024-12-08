@@ -20,7 +20,7 @@
               <h5 class="card-title">Data Akun</h5>
 
               {{-- pop up validasi --}}
-              @if ($errors->any())
+              {{-- @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ implode('', $errors->all(':message')) }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -33,7 +33,7 @@
                 @php
                   Session::put('success', null)
                 @endphp 
-              @endif
+              @endif --}}
                             
               <!-- General Form Elements -->
               <form method="POST" action="{{ url('store-account') }}" class="row g-3 needs-validation" novalidate>
@@ -42,16 +42,28 @@
                 <div class="row mb-3">
                   <label for="inputEmail" class="col-sm-2 col-form-label">Username</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="Username" value="{{ old('Username') }}" required>
-                    <div class="invalid-feedback">Silakan masukkan username.</div>
+                    {{-- <input type="text" class="form-control" name="Username" value="{{ old('Username') }}" required>
+                    <div class="invalid-feedback">Silakan masukkan username.</div> --}}
+                    <input name="username" type="text" class="form-control @error('username') is-invalid @enderror" id="username" value="{{ old('username') }}" required autocomplete="username">
+                              @error('username')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
-                    <input type="password" class="form-control" name="Password" required>
-                    <div class="invalid-feedback">Silakan masukkan password.</div>
+                    {{-- <input type="password" class="form-control" name="Password" required>
+                    <div class="invalid-feedback">Silakan masukkan password.</div> --}}
+                    <input name="password" type="text" class="form-control @error('password') is-invalid @enderror" id="password" value="{{ old('password') }}" required autocomplete="password">
+                              @error('password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
                   </div>
                 </div>
 
@@ -59,13 +71,13 @@
                   <legend class="col-form-label col-sm-2 pt-0"></legend>
                   <div class="col-sm-10">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="role_id" id="ad" value="1" checked>
+                      <input class="form-check-input" type="radio" name="role_id" id="adminpusat" value="1" checked>
                       <label class="form-check-label">
                         Admin Pusat
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="role_id" id="op" value="2">
+                      <input class="form-check-input" type="radio" name="role_id" id="adminwilayah" value="2">
                       <label class="form-check-label">
                         Admin Wilayah
                       </label>

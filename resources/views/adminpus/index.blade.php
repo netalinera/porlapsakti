@@ -97,6 +97,8 @@
             toastr.error('{{ Session::get('error') }}');
         @elseif(Session::has('success'))
             toastr.success('{{ Session::get('success') }}');
+        @elseif(Session::has('failed'))
+            toastr.error('{{ Session::get('failed') }}');
         @endif
     });
 

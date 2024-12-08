@@ -19,7 +19,7 @@
       </li><!-- End Akun Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->is('pemberkasans') ? 'active' : 'collapsed'}}" href="{{ url('pemberkasans') }}">
+        <a class="nav-link {{ request()->is('event') ? 'active' : 'collapsed'}}" href="{{ url('event') }}">
           <i class="ri-book-2-fill"></i>
           <span>Kegiatan</span>
         </a>
