@@ -23,9 +23,9 @@
           <i class="ri-book-2-fill"></i>
           <span>Kegiatan</span>
         </a>
-      </li><!-- End pemberkasan Page Nav -->
+      </li><!-- End Event Page Nav -->
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link {{ request()->is('peserta') ? 'active' : 'collapsed'}}" href="{{ url('peserta') }}">
           <i class="ri-open-arm-line"></i>
           <span>Peserta</span>
@@ -37,7 +37,7 @@
           <i class="ri-medal-line"></i>
           <span>Juara</span>
         </a>
-      </li><!-- End Winner Page Nav -->
+      </li><!-- End Winner Page Nav --> --}}
 
     </ul>
 {{-- =================== --}}
@@ -46,25 +46,25 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->is('operator') ? 'active' : 'collapsed'}}" href="{{ url('operator') }}">
+        <a class="nav-link {{ request()->is('adminwil') ? 'active' : 'collapsed'}}" href="{{ url('adminwil') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->is('peserta') ? 'active' : 'collapsed'}}" href="{{ url('peserta') }}">
+        <a class="nav-link {{ request()->is('events') ? 'active' : 'collapsed'}}" href="{{ url('events') }}">
           <i class="ri-open-arm-line"></i>
-          <span>Peserta</span>
+          <span>Kegiatan</span>
         </a>
       </li><!-- End Peserta Page Nav -->
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link {{ request()->is('juara') ? 'active' : 'collapsed'}}" href="{{ url('juara') }}">
           <i class="ri-medal-line"></i>
           <span>Juara</span>
         </a>
-      </li><!-- End Winner Page Nav -->
+      </li><!-- End Winner Page Nav --> --}}
 
     </ul>
   

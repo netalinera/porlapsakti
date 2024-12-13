@@ -35,7 +35,7 @@ class usersController extends Controller
         return view('adminpus.users.users',compact('user'));
     }
 
-    //hapus user
+    //hapus 
     public function destroy($id){
     	$user=User::find($id);
     	$user->delete();

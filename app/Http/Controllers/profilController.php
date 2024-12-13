@@ -15,7 +15,7 @@ class profilController extends Controller
     {
         $user = User::with('profil_user')->findOrFail(Auth::id());
 
-        return view('adminpus.profiluser', compact('user'));
+        return view('adminpus.myprofile', compact('user'));
     }
     //proses update
     public function update(Request $request, $id)
@@ -26,16 +26,21 @@ class profilController extends Controller
             'no_wa'     =>'required|numeric|min:2',
         ]);
 
-        $user = Profiluser::find($id);
+        $myprofile = Profiluser::find($id);
 
-        $user->nama_pj = $request->nama_pj;
-        $user->alamat = $request->alamat;
-        $user->no_wa = $request->no_wa;
+        $myprofile->nama_pj = $request->nama_pj;
+        $myprofile->alamat = $request->alamat;
+        $myprofile->no_wa = $request->no_wa;
 
-        $user->save();
+        $myprofile->save();
 
-        return back()->with('success', 'Profil berhasil diedit!');
+        // return back()->with('success', 'Profil berhasil diedit!');
         // return redirect(url()->previous() .'#profile-edit')->with('status', 'Profil berhasil diedit!');
+        if($myprofile){
+            return  back()->with('success', 'Your info are updated');
+        }else{
+            return  back()->with('failed', 'failed info to updated');
+        }
     }
 
     //proses insert db by self
@@ -56,10 +61,10 @@ class profilController extends Controller
                 $user->fill($request->all());
                 $user->save();
         
-                return back()->with('sukses', 'Profil berhasil diedit!');
+                return back()->with('success', 'Profil berhasil diedit!');
     }
 
-    //change password
+    //change password by self
     public function changePasswordSave(Request $request)
     {
         $this->validate($request, [
@@ -87,7 +92,7 @@ class profilController extends Controller
         $user -> password = bcrypt($request->get('new_password'));
         $user -> save();
          
-        return redirect()->back()->with("sukses","Password Berhasil Diubah !");
+        return redirect()->back()->with("success","Password Berhasil Diubah !");
     
     }
 

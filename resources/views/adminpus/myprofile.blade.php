@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-      <h1>Profile</h1>
+      <h1> My Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Akun</li>
-          <li class="breadcrumb-item active">Profil</li>
+          {{-- <li class="breadcrumb-item"></li> --}}
+          <li class="breadcrumb-item active">Data Diri Akun</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -119,16 +119,16 @@
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                   {{-- ===================== --}}
-                  @if(Session::get('success') && Session::get('success') != null)
+                  {{-- @if(Session::get('success') && Session::get('success') != null)
                     <div style="color:green">{{ Session::get('success') }}</div>
                     @php
                       Session::put('success', null)
                     @endphp                 
-                  @endif
+                  @endif --}}
                   @if(isset($user->profil_user))
-
+                  {{-- jika my profile sudah diinput, jadi tinggal diedit --}}
                   <!-- Profile Edit Form -->
-                  <form method="POST" action="{{ route('profil-update', $user->profil_user->id) }}" enctype="multipart/form-data">
+                  <form method="POST" action="{{ route('update-profile', $user->profil_user->id) }}" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
 
@@ -175,9 +175,9 @@
 
                   {{-- ============================== --}}
                   @else
-
+                  {{-- jika my profil belum diinput, jadi diinput dulu --}}
                   <!-- Profile add Form -->
-                  <form method="POST" action="{{ url('store-profil') }}" enctype="multipart/form-data">
+                  <form method="POST" action="{{ url('store-profile') }}" enctype="multipart/form-data">
                     
                     @csrf
 
@@ -230,7 +230,7 @@
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
                 {{-- =========penanganan eror inputan============== --}}
-                  @if($errors->any())
+                  {{-- @if($errors->any())
                   {!! implode('', $errors->all('<div style="color:red">:message</div>')) !!}
                   @endif
 
@@ -246,7 +246,7 @@
                     @php
                       Session::put('sukses', null)
                     @endphp                 
-                  @endif
+                  @endif --}}
                 {{-- ==================== --}}
                   <form action="{{ route('postChangePassword') }}" method="post">
 
@@ -257,11 +257,16 @@
                       
                       <div class="col-md-8 col-lg-9">
                         <div class="input-group">
-                          <input name="current_password" type="password" class="form-control" id="current_password">
+                          <input name="current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" value="{{ old('current_password') }}" required autocomplete="current_password">
                           <span class="input-group-text" onclick="password_show_hide();">
                             <i class="ri-eye-fill" id="show_eye"></i>
                             <i class="ri-eye-off-fill d-none" id="hide_eye"></i>
                           </span>
+                              @error('current_password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
                         </div>
                       </div>
                       
@@ -271,11 +276,16 @@
                       <label for="new_password" class="col-md-4 col-lg-3 col-form-label">Kata sandi baru</label>
                       <div class="col-md-8 col-lg-9">
                         <div class="input-group">
-                          <input name="new_password" type="password" class="form-control" id="new_password">
+                          <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" value="{{ old('new_password') }}" required autocomplete="new_password">
                           <span class="input-group-text" onclick="new_password();">
                             <i class="ri-eye-fill" id="show_new"></i>
                             <i class="ri-eye-off-fill d-none" id="hide_new"></i>
-                          </span>
+                          </span> 
+                              @error('new_password')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                          @enderror
                         </div>
                       </div>
                     </div>
@@ -284,11 +294,16 @@
                       <label for="new_password_confirmation" class="col-md-4 col-lg-3 col-form-label">Konfirmasi kata sandi baru</label>
                       <div class="col-md-8 col-lg-9">
                         <div class="input-group">
-                          <input name="new_password_confirmation" type="password" class="form-control" id="new_password_confirmation">
+                          <input name="new_password_confirmation" type="password" class="form-control @error('new_password_confirmation') is-invalid @enderror" id="new_password_confirmation" value="{{ old('new_password_confirmation') }}" required autocomplete="new_password_confirmation">
                           <span class="input-group-text" onclick="new_password_confirmation();">
                             <i class="ri-eye-fill" id="show_confirm"></i>
                             <i class="ri-eye-off-fill d-none" id="hide_confirm"></i>
                           </span>
+                              @error('new_password_confirmation')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
                         </div>
                       </div>
                     </div>

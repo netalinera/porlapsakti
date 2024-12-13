@@ -96,7 +96,7 @@
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary">Submit</button> 
-                    {{-- <a href="{{ url()->previous() }}">Back</a> --}}
+                    <a type="button" class="btn btn-secondary" href="{{ url()->previous() }}">Back</a>
                   </div>
                   <div class="col-sm-1">
                     <!-- Basic Modal -->
@@ -198,6 +198,7 @@
 
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Simpan</button>
+
                   
                 </div>
               </form><!-- End Change Password Form -->

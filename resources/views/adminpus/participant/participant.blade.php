@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="pagetitle">
-      <h1>Kegiatan</h1>
-      {{-- <nav>
+      <h1>Peserta Kegiatan</h1>
+      <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home</li>
-          <li class="breadcrumb-item active">Kegiatan</li>
+          <li class="breadcrumb-item">Kegiatan</li>
+          <li class="breadcrumb-item active">peserta</li>
         </ol>
-      </nav> --}}
+      </nav>
     </div><!-- End Page Title -->
 
   <section class="section">
@@ -17,12 +17,12 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Manajemen Kegiatan</h5>
+              <h5 class="card-title">Data Peserta</h5>
               <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable. Check for <a href="https://fiduswriter.github.io/simple-datatables/demos/" target="_blank">more examples</a>.</p> -->
 
               
               <p><!-- button -->
-              <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="Tambah Kegiatan" href="{{ url('add-event') }}"><i class="ri-add-circle-fill"></i></a></p>
+              <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="TambaH Peserta" href="{{ url('add-participant') }}"><i class="ri-add-circle-fill"></i></a></p>
 
 
               <!-- Table with stripped rows -->
@@ -30,31 +30,37 @@
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Nama Kegiatan</th>
-                    <th>Tahun</th>
-                    <th>Provinsi</th>
+                    <th>NPP</th>
+                    <th>Nama Peserta</th>
+                    <th>No WA</th>
+                    <th>Email</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($event as $p => $data)
+                  {{-- @foreach($participant as $p => $data)
                   <tr>
                     <td>{{ $p+1 }}</td>
-                    <td>{{ $data->nama_kegiatan }}</td>
-                    <td>{{ $data->tahun }}</td>
-                    <td>{{ $data->provinsi }}</td>
+                    <td>{{ $data->NPP }}</td>
+                    <td>{{ $data->nama_role }}</td>
+                    <td>{{ $data->nama_pj }}</td>
+                    <td>{{ $data->alamat }}</td>
+                    <td>{{ $data->no_wa }}</td>
                     <td>
                       <centre>
                         <div class="btn-group" role="group" aria-label="grup aksi">
-                          <a href="{{ route('participant', $data->id) }}" type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="List Peserta"><i class="ri-team-fill"></i></a>
-                          <a href="{{ route('update-event', $data->id) }}" type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Data"><i class="ri-edit-2-fill"></i></a>  
+                          @if (isset($data->nama_pj))
+                            <a href="{{ route('update-account', $data->id) }}" type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Data"><i class="ri-edit-2-fill"></i></a>  
+                          @else
+                            <a href="{{ route('add-profile', $data->id) }}" type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tambah Profil"><i class="ri-user-add-fill"></i></a>
+                          @endif
                           <button type="submit" class="btn btn-danger" onclick=" destroy({{ $data->id }})" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus Data"><i class="ri-delete-bin-2-fill"></i></button>
                               
                         </div>
                       </centre>
                     </td>
                   </tr>
-                  @endforeach
+                  @endforeach --}}
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -89,7 +95,7 @@
                     _method:'delete',
                     _token:"{{csrf_token()}}"
                 }
-                $.post("destroy-event/"+id,access)
+                $.post("destroy-account/"+id,access)
                 .done(res=>{
                     console.log(res);
                     swal({
