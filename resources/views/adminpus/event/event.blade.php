@@ -22,7 +22,7 @@
 
               
               <p><!-- button -->
-              <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="Tambah Akun" href="{{ url('add-account') }}"><i class="ri-add-circle-fill"></i></a></p>
+              <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="Tambah Kegiatan" href=""><i class="ri-add-circle-fill"></i></a></p>
 
 
               <!-- Table with stripped rows -->
@@ -30,23 +30,19 @@
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Nama PJ PIC</th>
-                    <th>Alamat</th>
-                    <th>No WA</th>
+                    <th>Nama Kegiatan</th>
+                    <th>Tahun</th>
+                    <th>Provinsi</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($user as $p => $data)
+                  @foreach($event as $p => $data)
                   <tr>
                     <td>{{ $p+1 }}</td>
-                    <td>{{ $data->username }}</td>
-                    <td>{{ $data->nama_role }}</td>
-                    <td>{{ $data->nama_pj }}</td>
-                    <td>{{ $data->alamat }}</td>
-                    <td>{{ $data->no_wa }}</td>
+                    <td>{{ $data->nama_kegiatan }}</td>
+                    <td>{{ $data->tahun }}</td>
+                    <td>{{ $data->provinsi }}</td>
                     <td>
                       <centre>
                         <div class="btn-group" role="group" aria-label="grup aksi">

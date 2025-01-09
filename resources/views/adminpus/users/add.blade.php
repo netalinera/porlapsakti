@@ -82,6 +82,18 @@
                         Admin Wilayah
                       </label>
                     </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="role_id" id="adminwilayah" value="2">
+                      <label class="form-check-label">
+                        Juri Perpustakaan Sekolah/Madrasah
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="role_id" id="adminwilayah" value="2">
+                      <label class="form-check-label">
+                        Juri Perpustakaan Perguruan Tinggi
+                      </label>
+                    </div>
                   </div>
                 </fieldset>
 

@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('lembagas', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_prov');//foreign key
-            $table->integer('id_kab_kota');//foreign key
-            $table->integer('id_kec');//foreign key
-            $table->integer('id_kel_desa');//foreign key
-            $table->string('npsn');
-            $table->string('nama_lembaga');
+            $table->unsignedBigInteger('id_prov');//foreign key
+            $table->unsignedBigInteger('id_kab_kota');//foreign key
+            $table->unsignedBigInteger('id_kec');//foreign key
+            $table->unsignedBigInteger('id_kel_desa');//foreign key
             $table->integer('id_jenis');
             $table->integer('id_sub_jenis');
-            $table->string('npsn');
+            $table->string('npsn_kodePT');
+            $table->string('status_PTN_PTS');
             $table->string('nama_lembaga');
+            $table->string('nama_perpus');
+            $table->string('NPP');
             $table->string('alamat');
             $table->string('rt');
             $table->string('rw');
@@ -32,7 +33,7 @@ return new class extends Migration
             $table->string('kode_negara');
             $table->string('kode_daerah');
             $table->string('nomor_telepon');
-            $table->boolean('status');
+            $table->boolean('keaktifan');
             $table->timestamps();
             // `created_by` varchar(300),
             // `updated_by` varchar(300)
