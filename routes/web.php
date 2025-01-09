@@ -2,10 +2,7 @@
 
 use App\Http\Controllers\adminpusController;
 use App\Http\Controllers\adminwilController;
-use App\Http\Controllers\event_wlyhController;
 use App\Http\Controllers\eventController;
-use App\Http\Controllers\participant_wlyhController;
-use App\Http\Controllers\participantController;
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\redirectController;
 use Illuminate\Support\Facades\Route;
@@ -54,7 +51,7 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
     Route::post('/userchangepw/{id}', [usersController::class, 'userchangepw'])->name('user-change-pw');
    
     //manajemen profil user
-    Route::get('/myprofile', [profilController::class, 'index']);
+    Route::get('/profile', [profilController::class, 'index']);
     Route::get('/add-profile/{id}', [profilController::class, 'add'])->name('add-profile');
     Route::post('/store-PU', [profilController::class, 'storePU'])->name('store-PU');//by admin
     Route::patch('/profile/{id}', [profilController::class, 'update'])->name('update-profile');
@@ -63,30 +60,12 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
     Route::get('/destroyImg/{id}', [profilController::class, 'destroyImg'])->name('destroyImg');
     Route::patch('/updatePhoto/{id}', [profilController::class, 'updatePhoto'])->name('updatePhoto');
 
-    //manajemen event (kegiatan)
+    //manajemen kegiatan
     Route::get('/event', [eventController::class, 'index']);
-    Route::get('/add-event', [eventController::class, 'add'])->name('add-event');
-    Route::post('/store-event', [eventController::class, 'store'])->name('store-event');
-    Route::get('/update-event/{id}', [eventController::class, 'update'])->name('update-event');
-    Route::post('/process-event/{id}', [eventController::class, 'processupdate'])->name('process-event');
-    Route::delete('/destroy-event/{id}', [eventController::class, 'destroy'])->name('destroy-event');
-
-    //manajemen participant (peserta)
-    Route::get('/participant/{id}', [participantController::class, 'index'])->name('participant');
-    Route::get('/add-participant', [participantController::class, 'add'])->name('add-participant');
-
     
 });
 
 // untuk admin wilayah
 Route::group(['middleware' => ['auth', 'checkrole:2']], function() {
-    //dashboard admin wilayah
     Route::get('/adminwil', [adminwilController::class, 'index']);
-
-    //manajemen event (kegiatan)
-    Route::get('/events', [event_wlyhController::class, 'index']);
-
-    //manajemen participant (peserta)
-    Route::get('/participants/{id}', [participant_wlyhController::class, 'index'])->name('participants');
-    Route::get('/add-participants', [participant_wlyhController::class, 'add'])->name('add-participants');
 });
