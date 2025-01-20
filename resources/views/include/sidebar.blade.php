@@ -17,27 +17,27 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="">
+            <a class="nav-link {{ request()->is('lembaga') ? 'active' : 'collapsed'}}" href="{{ url('lembaga') }}">
               <i class="bi bi-circle"></i><span>Lembaga</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a class="nav-link {{ request()->is('provinsi') ? 'active' : 'collapsed'}}" href="{{ url('provinsi')}}">
               <i class="bi bi-circle"></i><span>Provinsi</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a class="nav-link {{ request()->is('kab_kota') ? 'active' : 'collapsed'}}" href="{{ url('kab_kota')}}">
               <i class="bi bi-circle"></i><span>Kabupaten/Kota</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a class="nav-link {{ request()->is('kecamatan') ? 'active' : 'collapsed'}}" href="{{ url('kecamatan')}}">
               <i class="bi bi-circle"></i><span>Kecamatan</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a class="nav-link {{ request()->is('kel_desa') ? 'active' : 'collapsed'}}" href="{{ url('kel_desa')}}">
               <i class="bi bi-circle"></i><span>Kelurahan/Desa</span>
             </a>
           </li>
