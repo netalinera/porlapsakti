@@ -26,6 +26,10 @@
   <link href="{{ asset ('admins/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset ('admins/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+
+
   <!-- Template Main CSS File -->
   <link href="{{ asset ('admins/css/style.css') }}" rel="stylesheet">
 
@@ -74,6 +78,11 @@
 
   {{-- sweetalert2 --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.26.12/sweetalert2.all.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+  <!-- Pastikan ada stack untuk scripts -->
+  @stack('scripts')
 
   @yield('script')
 

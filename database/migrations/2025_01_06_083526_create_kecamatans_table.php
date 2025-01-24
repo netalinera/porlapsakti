@@ -6,24 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('kecamatans', function (Blueprint $table) {
-            $table->id();
-            $table->string('id_prov');//foreign key
-            $table->string('id_kab_kota');//foreign key
-            $table->string('nama_kec');
+            $table->string('id', 10)->primary();
+            $table->string('id_prov', 10);
+            $table->string('id_kab_kota', 10);
+            $table->string('nama_kecamatan');
             $table->timestamps();
+
+            $table->foreign('id_prov')
+                  ->references('id')
+                  ->on('provinsis')
+                  ->onDelete('cascade');
+            
+            $table->foreign('id_kab_kota')
+                  ->references('id')
+                  ->on('kab_kotas')
+                  ->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('kecamatans');
     }

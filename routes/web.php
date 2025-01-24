@@ -3,11 +3,17 @@
 use App\Http\Controllers\adminpusController;
 use App\Http\Controllers\adminwilController;
 use App\Http\Controllers\eventController;
+use App\Http\Controllers\KelDesaController;
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\redirectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sesiController;
 use App\Http\Controllers\usersController;
+use App\Http\Controllers\LembagaController;
+use App\Http\Controllers\KabupatenKotaController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KelurahanDesaController;
+use App\Http\Controllers\ProvinsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +68,31 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
 
     //manajemen kegiatan
     Route::get('/event', [eventController::class, 'index']);
-    
+
+    // manajemen lembaga
+    Route::get('/lembaga', [LembagaController::class, 'index'])->name('lembaga.index');
+    Route::get('/lembaga/create', [LembagaController::class, 'create'])->name('lembaga.create');
+    Route::post('/lembaga', [LembagaController::class, 'store'])->name('lembaga.store');
+    Route::get('/lembaga/{id}/edit', [LembagaController::class, 'edit'])->name('lembaga.edit');
+    Route::delete('/lembaga/{id}', [LembagaController::class, 'destroy'])->name('lembaga.destroy');
+    Route::patch('/lembaga/{id}', [LembagaController::class, 'update'])->name('lembaga.update');
+
+
+    // Route resource untuk CRUD Provinsi
+    Route::resource('provinsi', ProvinsiController::class);
+
+    // Route Kabupaten Kota
+    Route::resource('kab_kota', KabupatenKotaController::class);
+    Route::get('/get-kabupaten-kota/{id_provinsi}', [KabupatenKotaController::class, 'getKabKotaByProvinsi'])->name('get-kabupaten-kota');
+
+
+    // Route Kecamatan
+    Route::resource('kecamatan', KecamatanController::class);
+    Route::get('/get-kecamatan/{id_kab_kota}', [KecamatanController::class, 'getKecamatanByKabupaten'])->name('get-kecamatan');
+
+    Route::resource('kel_desa', KelurahanDesaController::class);
+    Route::get('/get-kelurahan-desa/{id_kecamatan}', [KelurahanDesaController::class, 'getKelDesaByKecamatan'])->name('get-kelurahan-desa');
+
 });
 
 // untuk admin wilayah

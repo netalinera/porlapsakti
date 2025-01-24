@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         $userData=[
             [
                 'id'=>'1',
+                'email'=>'adminpus1',
                 'username'=>'adminpus1',
                 'password'=>bcrypt('12345678'),
                 'role_id'=>'1',
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id'=>'2',
+                'email'=>'adminpus2',
                 'username'=>'adminwil1',
                 'password'=>bcrypt('12345678'),
                 'role_id'=>'2',
@@ -31,6 +33,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id'=>'3',
+                'email'=>'adminpus3',
                 'username'=>'adminwil2',
                 'password'=>bcrypt('12345678'),
                 'role_id'=>'2',
@@ -38,6 +41,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id'=>'4',
+                'email'=>'adminpus4',
                 'username'=>'adminpus2',
                 'password'=>bcrypt('12345678'),
                 'role_id'=>'1',
@@ -45,6 +49,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id'=>'5',
+                'email'=>'adminpus5',
                 'username'=>'adminpus3',
                 'password'=>bcrypt('12345678'),
                 'role_id'=>'1',
@@ -52,6 +57,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id'=>'6',
+                'email'=>'adminpus6',
                 'username'=>'adminwil3',
                 'password'=>bcrypt('12345678'),
                 'role_id'=>'2',
