@@ -38,8 +38,8 @@ class lembagaController extends Controller
         }
     
         // Paginasi dan sorting
-        $lembagas = $query->orderBy('id_prov', 'asc')
-                          ->orderBy('id_kab_kota', 'asc')
+        $lembagas = $query->orderBy('kode_prov', 'asc')
+                          ->orderBy('kode_kab_kota', 'asc')
                           ->paginate(15)
                           ->onEachSide(2);
     
@@ -60,10 +60,10 @@ class lembagaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_prov' => 'required',
-            'id_kab_kota' => 'required',
-            'id_kec' => 'required|exists:kecamatans,id',
-            'id_kel_desa' => 'required',
+            'kode_prov' => 'required',
+            'kode_kab_kota' => 'required',
+            'kode_kec' => 'required|exists:kecamatans,id',
+            'kode_kel_desa' => 'required',
             'nama_lembaga' => 'required|max:300',
             'nama_perpus' => 'required|max:300',
             'NPP' => 'required', // Sesuaikan nama tabel
@@ -87,9 +87,9 @@ class lembagaController extends Controller
     {
         $lembaga = Lembaga::findOrFail($id);
         $provinces = Provinsi::all();
-        $kabupatenKotas = KabKota::where('id_prov', $lembaga->id_prov)->get();
-        $kecamatans = kecamatan::where('id_kab_kota', $lembaga->id_kab_kota)->get();
-        $kelurahanDesas = KelDesa::where('id_kecamatan', $lembaga->id_kec)->get();
+        $kabupatenKotas = KabKota::where('kode_prov', $lembaga->kode_prov)->get();
+        $kecamatans = kecamatan::where('kode_kab_kota', $lembaga->kode_kab_kota)->get();
+        $kelurahanDesas = KelDesa::where('kode_kecamatan', $lembaga->kode_kec)->get();
 
     return view('adminpus.lembaga.edit', compact('lembaga', 'provinces', 'kabupatenKotas', 'kecamatans', 'kelurahanDesas'));
     }
@@ -98,10 +98,10 @@ class lembagaController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'id_prov' => 'required',
-            'id_kab_kota' => 'required',
-            'id_kec' => 'required',
-            'id_kel_desa' => 'required',
+            'kode_prov' => 'required',
+            'kode_kab_kota' => 'required',
+            'kode_kec' => 'required',
+            'kode_kel_desa' => 'required',
             'nama_lembaga' => 'required|max:300',
             'nama_perpus' => 'required|max:300',
             'alamat' => 'required',

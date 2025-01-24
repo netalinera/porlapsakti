@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\provinsi;
+use App\Models\Provinsi;
 
 class ProvinsiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = provinsi::query();
+        $query = Provinsi::query();
     
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->where('id', 'LIKE', '%' . $search . '%')
+            $query->where('kode_prov', 'LIKE', '%' . $search . '%')
                   ->orWhere('nama_provinsi', 'LIKE', '%' . $search . '%');
         }
     
-        $provinces = $query->orderBy('id', 'asc')->paginate(15)->onEachSide(2);
+        $provinces = $query->orderBy('kode_prov', 'asc')->paginate(15)->onEachSide(2);
     
         return view('adminpus.provinsi.index', compact('provinces'));
     }
@@ -30,28 +30,28 @@ class ProvinsiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id' => 'required|numeric|unique:provinsis,id',
+            'kode_prov' => 'required|string|unique:provinsis,kode_prov',
             'nama_provinsi' => 'required|string|max:255|unique:provinsis,nama_provinsi',
         ]);
 
-        provinsi::create($validated);
+        Provinsi::create($validated);
 
         return redirect()->route('provinsi.index')
             ->with('success', 'Provinsi berhasil ditambahkan!');
     }
 
-    public function edit($id)
+    public function edit($kode_prov)
     {
-        $provinsi = provinsi::findOrFail($id);
+        $provinsi = Provinsi::findOrFail($kode_prov);
         return view('adminpus.provinsi.edit', compact('provinsi'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $kode_prov)
     {
-        $provinsi = provinsi::findOrFail($id);
+        $provinsi = Provinsi::findOrFail($kode_prov);
 
         $validated = $request->validate([
-            'nama_provinsi' => 'required|string|max:255|unique:provinsis,nama_provinsi,' . $id,
+            'nama_provinsi' => 'required|string|max:255|unique:provinsis,nama_provinsi,' . $kode_prov . ',kode_prov',
         ]);
 
         $provinsi->update($validated);
@@ -60,9 +60,9 @@ class ProvinsiController extends Controller
             ->with('success', 'Provinsi berhasil diperbarui!');
     }
 
-    public function destroy($id)
+    public function destroy($kode_prov)
     {
-        $provinsi = provinsi::findOrFail($id);
+        $provinsi = Provinsi::findOrFail($kode_prov);
         $provinsi->delete();
 
         return redirect()->route('provinsi.index')
