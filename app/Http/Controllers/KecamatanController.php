@@ -24,32 +24,33 @@ class KecamatanController extends Controller
                   });
         }
     
-        $kecamatans = $query->orderBy('kode_prov', 'asc')
-                            ->orderBy('kode_kab_kota', 'asc')
-                            ->orderBy('kode_kec', 'asc')
+        $kecamatans = $query->orderBy('id_prov', 'asc')
+                            ->orderBy('id_kab_kota', 'asc')
                             ->paginate(15)
                             ->onEachSide(2);
     
         return view('adminpus.kecamatan.index', compact('kecamatans'));
     }
     
+
     public function create()
     {
-        $provinces = Provinsi::orderBy('kode_prov', 'asc')->get();
+        // Pastikan data provinsi dimuat
+        $provinces = Provinsi::orderBy('id', 'asc')->get();
         return view('adminpus.kecamatan.create', compact('provinces'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_kec' => 'required|string|unique:kecamatans,kode_kec',
-            'kode_prov' => 'required|exists:provinsis,kode_prov',
-            'kode_kab_kota' => 'required|exists:kab_kotas,kode_kab_kota',
+            'id' => 'required|numeric|unique:kecamatans,id',
+            'id_prov' => 'required|exists:provinsis,id',
+            'id_kab_kota' => 'required|exists:kab_kotas,id',
             'nama_kecamatan' => 'required|string|max:255',
         ]);
 
         // Validasi tambahan: Pastikan nama_kecamatan unik dalam kabupaten yang sama
-        $existingName = Kecamatan::where('kode_kab_kota', $request->kode_kab_kota)
+        $existingName = Kecamatan::where('id_kab_kota', $request->id_kab_kota)
                                 ->where('nama_kecamatan', $request->nama_kecamatan)
                                 ->exists();
 
@@ -59,54 +60,60 @@ class KecamatanController extends Controller
 
         Kecamatan::create($validated);
 
-        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil ditambahkan!');
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil ditambahkan.');
     }
 
-    public function edit($kode_kec)
+
+    public function edit($id)
     {
-        $kecamatan = Kecamatan::with(['kabKota', 'provinsi'])->findOrFail($kode_kec);
-        $provinces = Provinsi::orderBy('kode_prov', 'asc')->get();
-        $kabKotas = KabKota::where('kode_prov', $kecamatan->provinsi->kode_prov)->orderBy('nama_kab_kota', 'asc')->get();
+        $kecamatan = Kecamatan::with(['kabKota', 'provinsi'])->findOrFail($id);
+        $provinces = Provinsi::orderBy('id', 'asc')->get();
+        $kabKotas = KabKota::where('id_prov', $kecamatan->provinsi->id)->orderBy('nama_kab_kota', 'asc')->get();
 
         return view('adminpus.kecamatan.edit', compact('kecamatan', 'provinces', 'kabKotas'));
     }
 
-    public function update(Request $request, $kode_kec)
-    {
-        $kecamatan = Kecamatan::findOrFail($kode_kec);
 
+    public function update(Request $request, $id)
+    {
+        $kecamatan = Kecamatan::findOrFail($id);
+    
         $validated = $request->validate([
-            'kode_prov' => 'required|exists:provinsis,kode_prov',
-            'kode_kab_kota' => 'required|exists:kab_kotas,kode_kab_kota',
+            'id_prov' => 'required|exists:provinsis,id',
+            'id_kab_kota' => 'required|exists:kab_kotas,id',
             'nama_kecamatan' => 'required|string|max:255',
         ]);
-
-        // Validasi tambahan
-        $existingName = Kecamatan::where('kode_kab_kota', $request->kode_kab_kota)
+    
+        // Validasi tambahan: Pastikan nama_kecamatan unik dalam kabupaten yang sama
+        $existingName = Kecamatan::where('id_kab_kota', $request->id_kab_kota)
                                  ->where('nama_kecamatan', $request->nama_kecamatan)
-                                 ->where('kode_kec', '!=', $kode_kec)
+                                 ->where('id', '!=', $id) // Abaikan data yang sedang diperbarui
                                  ->exists();
-
+    
         if ($existingName) {
             return redirect()->back()->withErrors(['nama_kecamatan' => 'Nama kecamatan sudah digunakan dalam kabupaten ini.']);
         }
-
+    
         $kecamatan->update($validated);
-
-        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil diperbarui!');
+    
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil diperbarui.');
     }
 
-    public function destroy($kode_kec)
+    public function destroy($id)
     {
-        $kecamatan = Kecamatan::findOrFail($kode_kec);
+        $kecamatan = Kecamatan::findOrFail($id);
         $kecamatan->delete();
 
-        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil dihapus!');
+        return redirect()->route('kecamatan.index')->with('success', 'Kecamatan berhasil dihapus.');
     }
 
-    public function getKecamatanByKabupaten($kode_kab_kota)
+    
+
+    public function getKecamatanByKabupaten($id_kab_kota)
     {
-        $kecamatan = Kecamatan::where('kode_kab_kota', $kode_kab_kota)->orderBy('nama_kecamatan', 'asc')->get();
+        $kecamatan = Kecamatan::where('id_kab_kota', $id_kab_kota)->get();
         return response()->json($kecamatan);
     }
+
+
 }
