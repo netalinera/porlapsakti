@@ -47,35 +47,35 @@
 
                             <!-- Provinsi -->
                             <div class="mb-3">
-                                <label for="id_prov" class="form-label">Provinsi</label>
-                                <select name="id_prov" id="provinsi" class="form-select" required>
+                                <label for="kode_prov" class="form-label">Provinsi</label>
+                                <select name="kode_prov" id="provinsi" class="form-select" required>
                                     <option value="" selected>Pilih Provinsi</option>
                                     @foreach ($provinces as $prov)
-                                        <option value="{{ $prov->id }}">{{ $prov->nama_provinsi }}</option>
+                                        <option value="{{ $prov->kode_prov }}">{{ $prov->nama_provinsi }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <!-- Kabupaten/Kota -->
                             <div class="mb-3">
-                                <label for="id_kab_kota" class="form-label">Kabupaten/Kota</label>
-                                <select name="id_kab_kota" id="kabupaten_kota" class="form-select" required disabled>
+                                <label for="kode_kab_kota" class="form-label">Kabupaten/Kota</label>
+                                <select name="kode_kab_kota" id="kabupaten_kota" class="form-select" required disabled>
                                     <option value="" selected>Pilih Kabupaten/Kota</option>
                                 </select>
                             </div>
 
                             <!-- Kecamatan -->
                             <div class="mb-3">
-                                <label for="id_kec" class="form-label">Kecamatan</label>
-                                <select name="id_kec" id="kecamatan" class="form-select" required disabled>
+                                <label for="kode_kec" class="form-label">Kecamatan</label>
+                                <select name="kode_kec" id="kecamatan" class="form-select" required disabled>
                                     <option value="" selected>Pilih Kecamatan</option>
                                 </select>
                             </div>
 
                             <!-- Kelurahan/Desa -->
                             <div class="mb-3">
-                                <label for="id_kel_desa" class="form-label">Kelurahan/Desa</label>
-                                <select name="id_kel_desa" id="kelurahan_desa" class="form-select" required disabled>
+                                <label for="kode_kel_desa" class="form-label">Kelurahan/Desa</label>
+                                <select name="kode_kel_desa" id="kelurahan_desa" class="form-select" required disabled>
                                     <option value="" selected>Pilih Kelurahan/Desa</option>
                                 </select>
                             </div>
@@ -131,36 +131,27 @@
                 </div>
             </div>
         </div>
+
         <script>
             $(document).ready(function() {
                 $('#provinsi').on('change', function() {
                     var provinsiId = $(this).val();
 
-                    // Reset dan disable dropdown di bawahnya
-                    $('#kabupaten_kota').empty().append(
-                        '<option value="" disabled selected>Pilih Kabupaten/Kota</option>').prop('disabled',
-                        true);
-                    $('#kecamatan').empty().append(
-                        '<option value="" disabled selected>Pilih Kecamatan</option>').prop('disabled',
-                        true);
-                    $('#kelurahan_desa').empty().append(
-                        '<option value="" disabled selected>Pilih Kelurahan/Desa</option>').prop('disabled',
-                        true);
+                    // Reset dropdown di bawahnya
+                    $('#kabupaten_kota').empty().append('<option value="" disabled selected>Pilih Kabupaten/Kota</option>').prop('disabled', true);
+                    $('#kecamatan').empty().append('<option value="" disabled selected>Pilih Kecamatan</option>').prop('disabled', true);
+                    $('#kelurahan_desa').empty().append('<option value="" disabled selected>Pilih Kelurahan/Desa</option>').prop('disabled', true);
 
                     if (provinsiId) {
-                        $('#kabupaten_kota').append('<option value="" disabled>Memuat...</option>');
                         $.ajax({
                             url: '/get-kabupaten-kota/' + provinsiId,
                             type: 'GET',
                             dataType: 'json',
                             success: function(data) {
-                                $('#kabupaten_kota').empty().append(
-                                    '<option value="" disabled selected>Pilih Kabupaten/Kota</option>'
-                                    );
+                                $('#kabupaten_kota').empty().append('<option value="" disabled selected>Pilih Kabupaten/Kota</option>');
                                 $('#kabupaten_kota').prop('disabled', false);
                                 $.each(data, function(key, value) {
-                                    $('#kabupaten_kota').append('<option value="' + value
-                                        .id + '">' + value.nama_kab_kota + '</option>');
+                                    $('#kabupaten_kota').append('<option value="' + value.kode_kab_kota + '">' + value.nama_kab_kota + '</option>');
                                 });
                             }
                         });
@@ -170,28 +161,19 @@
                 $('#kabupaten_kota').on('change', function() {
                     var kabupatenKotaId = $(this).val();
 
-                    // Reset dan disable dropdown di bawahnya
-                    $('#kecamatan').empty().append(
-                        '<option value="" disabled selected>Pilih Kecamatan</option>').prop('disabled',
-                        true);
-                    $('#kelurahan_desa').empty().append(
-                        '<option value="" disabled selected>Pilih Kelurahan/Desa</option>').prop('disabled',
-                        true);
+                    $('#kecamatan').empty().append('<option value="" disabled selected>Pilih Kecamatan</option>').prop('disabled', true);
+                    $('#kelurahan_desa').empty().append('<option value="" disabled selected>Pilih Kelurahan/Desa</option>').prop('disabled', true);
 
                     if (kabupatenKotaId) {
-                        $('#kecamatan').append('<option value="" disabled>Memuat...</option>');
                         $.ajax({
                             url: '/get-kecamatan/' + kabupatenKotaId,
                             type: 'GET',
                             dataType: 'json',
                             success: function(data) {
-                                $('#kecamatan').empty().append(
-                                    '<option value="" disabled selected>Pilih Kecamatan</option>'
-                                    );
+                                $('#kecamatan').empty().append('<option value="" disabled selected>Pilih Kecamatan</option>');
                                 $('#kecamatan').prop('disabled', false);
                                 $.each(data, function(key, value) {
-                                    $('#kecamatan').append('<option value="' + value.id +
-                                        '">' + value.nama_kecamatan + '</option>');
+                                    $('#kecamatan').append('<option value="' + value.kode_kec + '">' + value.nama_kecamatan + '</option>');
                                 });
                             }
                         });
@@ -201,25 +183,18 @@
                 $('#kecamatan').on('change', function() {
                     var kecamatanId = $(this).val();
 
-                    // Reset dan disable dropdown di bawahnya
-                    $('#kelurahan_desa').empty().append(
-                        '<option value="" disabled selected>Pilih Kelurahan/Desa</option>').prop('disabled',
-                        true);
+                    $('#kelurahan_desa').empty().append('<option value="" disabled selected>Pilih Kelurahan/Desa</option>').prop('disabled', true);
 
                     if (kecamatanId) {
-                        $('#kelurahan_desa').append('<option value="" disabled>Memuat...</option>');
                         $.ajax({
                             url: '/get-kelurahan-desa/' + kecamatanId,
                             type: 'GET',
                             dataType: 'json',
                             success: function(data) {
-                                $('#kelurahan_desa').empty().append(
-                                    '<option value="" disabled selected>Pilih Kelurahan/Desa</option>'
-                                    );
+                                $('#kelurahan_desa').empty().append('<option value="" disabled selected>Pilih Kelurahan/Desa</option>');
                                 $('#kelurahan_desa').prop('disabled', false);
                                 $.each(data, function(key, value) {
-                                    $('#kelurahan_desa').append('<option value="' + value
-                                        .id + '">' + value.nama_kel_desa + '</option>');
+                                    $('#kelurahan_desa').append('<option value="' + value.kode_kel_desa + '">' + value.nama_kel_desa + '</option>');
                                 });
                             }
                         });
@@ -227,7 +202,5 @@
                 });
             });
         </script>
-
-
     </section>
 @endsection

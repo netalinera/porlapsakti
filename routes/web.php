@@ -83,15 +83,15 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
 
     // Route Kabupaten Kota
     Route::resource('kab_kota', KabupatenKotaController::class);
-    Route::get('/get-kabupaten-kota/{id_provinsi}', [KabupatenKotaController::class, 'getKabKotaByProvinsi'])->name('get-kabupaten-kota');
+    Route::get('/get-kabupaten-kota/{kode_prov}', [KabupatenKotaController::class, 'getKabKotaByProvinsi'])->name('get-kabupaten-kota');
 
 
     // Route Kecamatan
     Route::resource('kecamatan', KecamatanController::class);
-    Route::get('/get-kecamatan/{id_kab_kota}', [KecamatanController::class, 'getKecamatanByKabupaten'])->name('get-kecamatan');
+    Route::get('/get-kecamatan/{kode_kab_kota}', [KecamatanController::class, 'getKecamatanByKabupaten'])->name('get-kecamatan');
 
     Route::resource('kel_desa', KelurahanDesaController::class);
-    Route::get('/get-kelurahan-desa/{id_kecamatan}', [KelurahanDesaController::class, 'getKelDesaByKecamatan'])->name('get-kelurahan-desa');
+    Route::get('/get-kelurahan-desa/{kode_kec}', [KelurahanDesaController::class, 'getKelDesaByKecamatan'])->name('get-kelurahan-desa');
 
 });
 

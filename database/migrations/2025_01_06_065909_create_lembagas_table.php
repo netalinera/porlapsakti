@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('lembagas', function (Blueprint $table) {
             $table->id();
-            $table->string('id_prov', 10);
-            $table->string('id_kab_kota', 10);
-            $table->string('id_kec', 10);
-            $table->string('id_kel_desa', 10);
+            $table->string('kode_prov', 10);
+            $table->string('kode_kab_kota', 10);
+            $table->string('kode_kec', 10);
+            $table->string('kode_kel_desa', 10);
             // $table->integer('id_jenis');
             // $table->integer('id_sub_jenis');
             // $table->string('npsn_kodePT');

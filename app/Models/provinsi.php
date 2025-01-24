@@ -10,11 +10,13 @@ class Provinsi extends Model
     use HasFactory;
     
     protected $table = 'provinsis';
-    protected $fillable = ['id', 'nama_provinsi'];
+    protected $primaryKey = 'kode_prov'; // Primary key baru
+    protected $fillable = ['kode_prov', 'nama_provinsi'];
     public $incrementing = false; 
+    protected $keyType = 'string'; // Karena kode_prov bertipe string
     
-    public function kab_kotas()
+    public function kabKotas()
     {
-        return $this->hasMany(KabKota::class, 'id_prov', 'id');
+        return $this->hasMany(KabKota::class, 'kode_prov', 'kode_prov');
     }
 }
