@@ -14,7 +14,7 @@ return new class extends Migration
         //
         Schema::create('supervisi_ps', function(Blueprint $table){
             $table->id();
-            $table->string('id_nama_kegiatan');
+            $table->unsignedBigInteger('id_nama_kegiatan');
             $table->string('lokus_kode_prov');
             $table->string('hasil_1');
             $table->string('hasil_2');
@@ -32,7 +32,11 @@ return new class extends Migration
                   ->references('kode_prov')
                   ->on('provinsis')
                   ->onDelete('cascade');
-            
+
+            $table->foreign('id_nama_kegiatan')
+                  ->references('id')
+                  ->on('m_kegiatan')
+                  ->onDelete('cascade');
         });
     }
 

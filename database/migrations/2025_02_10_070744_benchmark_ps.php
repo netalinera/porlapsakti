@@ -14,7 +14,7 @@ return new class extends Migration
         //
         Schema::create('benchmark_ps', function(Blueprint $table){
             $table->id();
-            $table->string('id_nama_kegiatan');
+            $table->unsignedBigInteger('id_nama_kegiatan');
             $table->string('nama_peserta');
             $table->string('no_telpon_peserta');
             $table->string('email_peserta');
@@ -31,6 +31,10 @@ return new class extends Migration
                   ->on('lembagas')
                   ->onDelete('cascade');
             
+            $table->foreign('id_nama_kegiatan')
+                  ->references('id')
+                  ->on('m_kegiatan')
+                  ->onDelete('cascade');
         });
     }
 
